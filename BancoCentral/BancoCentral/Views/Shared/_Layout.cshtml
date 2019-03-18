@@ -1,15 +1,16 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/estilos.css")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body class="m-0 p-0">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar fixed-top mb-5">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -17,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">@Html.ActionLink("Inicio", "Index", "Home", new { @class = "nav-link" })</li>
-                <li class="nav-item">@Html.ActionLink("Acerca de", "About", "Home", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Nuestra Empresa", "About", "Home", new { @class = "nav-link" })</li>
                 <li class="nav-item">@Html.ActionLink("Contacto", "Contact", "Home", new { @class = "nav-link" })</li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -26,8 +27,17 @@
             </form>
         </div>
     </nav>
+
+
+    @RenderSection("SideBar", required: false)
+
     <div class="container body-content">
+        <div id="content">
+            @RenderSection("Content", required: false)
+        </div>
+
         @RenderBody()
+
         <hr />
         <footer class="text-center">
             <p>&copy; @DateTime.Now.Year MASTERS-JKL</p>

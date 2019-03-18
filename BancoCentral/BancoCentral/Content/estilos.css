@@ -1,0 +1,78 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+.ancla:before {
+    display: block;
+    content: " ";
+    margin-top: -120px;
+    height: 120px;
+    visibility: hidden;
+} 
+
+#content{
+    margin-left : 200px;
+}
+
+.sidebar {
+    position: fixed;
+    width: 20%;
+    height: 100vh;
+    background: #121212;
+    font-size: 0.65em;
+    float: left;
+    margin-top:55px;
+}
+
+.nav {
+    position: relative;
+    margin: 20% 5% 0 0;
+    text-align: center;
+    top: 35%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-weight: bold;
+}
+
+    .nav ul {
+        list-style: none;
+        width:20%;
+        margin-top:100px;
+    }
+
+        .nav ul li {
+            position: relative;
+
+        }
+
+            .nav ul li a {
+                line-height: 5em;
+                text-transform: uppercase;
+                text-decoration: none;
+                letter-spacing: 0.1em;
+                color: rgba(255, 255, 255, 0.35);
+                display: block;
+                transition: all ease-out 300ms;
+            }
+
+            .nav ul li.active a {
+                color: white;
+            }
+
+            .nav ul li:not(.active)::after {
+                opacity: 0.2;
+            }
+
+            .nav ul li:not(.active):hover a {
+                color: rgba(255, 255, 255, 0.75);
+            }
+
+            .nav ul li::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 0.2em;
+                background: black;
+                left: 0;
+                bottom: 0;
+                background-image: linear-gradient(to right, white, #000000);
+            }
+
