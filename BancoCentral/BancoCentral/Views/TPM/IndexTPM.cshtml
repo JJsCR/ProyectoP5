@@ -1,0 +1,127 @@
+﻿
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <title></title>
+    <style type="text/css">
+        h2 {
+            color: #eb5a46;
+        }
+
+        #Head {
+            background-color: #eb5a46;
+        }
+
+        #Card {
+            background-color: #649A8E;
+        }
+
+        p {
+            text-align: justify;
+        }
+    </style>
+
+<body>
+    <header class="py-5 mb-5" id="Head">
+        <div class="container h-100 text-center">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-12">
+                    <h1 class="display-4 text-white mt-5 mb-2">Tasa de Política Monetaria</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 mx-auto mb-5">
+                    <h2>Descripción</h2>
+                    <hr>
+                    <p> La política monetaria es un área de la política económica, encargada a los bancos centrales, que tiene como propósito influenciar las variables monetarias y financieras para lograr objetivos específicos, que en el caso costarricense, se circunscriben a una inflación baja y estable.</p>
+
+                    <p>La inflación baja y estable contribuye a preservar el poder de compra de los salarios e ingresos de los habitantes del país y facilita la toma de decisiones, favoreciendo el ahorro y la inversión y, en última instancia, el crecimiento económico. </p>
+
+                    <p>En el 2005 la Junta Directiva del Banco Central decidió migrar, de manera gradual y ordenada, hacia una estrategia de política monetaria de Metas de Inflación, proceso que aún no ha concluido.</p>
+
+                    <p>Un esquema de Metas de Inflación hace explícito que su principal objetivo es la inflación, por lo que  el anuncio de una meta para ésta (rango o valor puntual) constituye el ancla nominal explícita de la política monetaria.  El principal instrumento de política es la tasa de interés de muy corto plazo y la ejecución de dicha política se realiza mediante la intervención discrecional del Banco Central en el mercado de dinero.</p>
+
+                    <p>Los avances en esta estrategia son comunicados a la sociedad mediante informes que publica regularmente en su sitio web (Programa Macroeconómico e Informes de Inflación, entre otros).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 mx-auto mb-5">
+                    <h2>Fórmula de Cálculo</h2>
+                    <hr>
+                    <p>Me falta investigar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 mx-auto mb-5">
+                    <h2>Periocidad de Cálculo</h2>
+                    <hr>
+                    <p>Me falta investigar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- /.row -->
+    <section id="grafico">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 mx-auto mb-5">
+                    <h2>Grafico Lineal</h2>
+                    <canvas id="speedChart" width="900" height="500"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.row -->
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto mb-5">
+                    <h2>Impacto para los costarricenses</h2>
+                    <hr>
+                    <p> La TPM es una tasa calculada por el Banco Central que guía y orienta a los intermediarios financieros hacia dónde se dirigirá la política monetaria en los próximos meses.</p>
+                    <p>
+                        “Si el Banco ve que la inflación se está saliendo de ese rango, la sube para mantener la inflación controlada dentro del rango durante los próximos meses”.
+                    </p>
+                    <p>
+                    <p>Esta tasa es a la que acuden los intermediarios financieros cuando necesitan fondearse a través del Banco Central.</p>
+                    <p>
+                        Cuando el Banco sube la tasa porque prevé que pueden haber presiones inflacionarias, a los intermediarios financieros como bancos, mutuales y otras entidades financieras les cuesta más fondearse, por lo que la TPM termina traspasándose a las tasas activas, que son las que paga el público por sus créditos.
+                    </p>
+                    <p>
+                        En otras palabras, si a los bancos les sale más caro recibir recursos del Central, entonces trasladan ese costo a las tasas que cobran por los préstamos a sus clientes. De esa forma, si le sale más caro a una persona pedir un crédito en el banco, desistirá de adquirirlo y de esa forma, se restringirá la circulación de más dinero y de paso, la inflación.
+                    </p>
+
+                    <p>El otro caso es cuando la tasa de inflación está por debajo de la meta del Central.</p>
+
+                    <p>Bajo ese escenario, el Banco más bien baja la TPM para que los intermediarios puedan fondearse a más bajo costo y bajen las tasas a los clientes que acuden a pedir crédito, para impulsar que haya mayor demanda de productos.</p>
+
+                    <p>“Al conocer la TPM, los usuarios bancarios saben que cuando hay un cambio, existe una pretensión del Banco a aumentar o bajar la inflación. La gente así puede saber que en un futuro las tasas que pagan por sus créditos van a tender a subir o bajar”.</p>
+
+                    <p>Sin embargo, el economista explica que la TPM tiene afectación en las tasas activas, mas no necesariamente se trasmitiría a las pasivas, es decir, aquellas las que los bancos pagan por los ahorros de las personas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="~/Scripts/Grafico.js"></script>
+</body>
