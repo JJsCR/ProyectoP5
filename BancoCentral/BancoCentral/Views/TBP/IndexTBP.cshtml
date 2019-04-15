@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "IndexTBP";
+}
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<style type="text/css">
+    h2 {
+        color: #ff9f1a;
+    }
+
+    #Head {
+        background-color: #ff9f1a;
+    }
+
+    #Card {
+        background-color: #649A8E;
+    }
+
+    p {
+        text-align: justify;
+    }
+</style>
+
+<body>
+    <header class="py-5 mb-5" id="Head">
+        <div class="container h-100 text-center">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-12">
+                    <h1 class="display-4 text-white mt-5 mb-2">Tasa Básica Pasiva</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 mx-auto mb-5">
+                    <h2>Descripción</h2>
+                    <hr>
+                    <p>Indicador se calcula desde 1981 para medir cuánto pagan los bancos y entidades por ahorros o depósitos a diferentes plazos.</p>
+
+                    <p>La Tasa Básica Pasiva (TBP) es la tasa de referencia calculada por el Banco Central de Costa Rica que estima, en promedio, la tasa que pagan los bancos públicos y privados en el país y las entidades financieras por los depósitos o ahorros en colones. </p>
+
+                    <p>Con los promedios de tasas de interés de las diferentes entidades financieras del país, se calcula un nuevo promedio ponderado de dichos rendimientos y eso arroja la TBP de la semana, hasta el miércoles siguiente, lo cual resulta útil para aquellos que desean tener una referencia de cómo se está posicionando la tasa en le mercado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 mx-auto mb-5">
+                    <h2>Fórmula de Cálculo</h2>
+                    <hr>
+                    <p>La Tasa Básica Pasiva es un promedio ponderado de las tasas de interés brutas de captación a plazo en colones, de los distintos grupos de intermediarios financieros, que conforman las Otras Sociedades de Depósito (OSD) a los plazos entre 150 y 210 días. Este promedio se redondeará al veinteavo de punto porcentual más cercano.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 mx-auto mb-5">
+                    <h2>Periocidad de Cálculo</h2>
+                    <hr>
+                    <p>La Tasa se publica el día miércoles de cada semana y rige desde el jueves siguiente y durante los siete días posteriores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- /.row -->
+    <section id="grafico">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8 mx-auto mb-5">
+                    <h2>Grafico Lineal</h2>
+                    <canvas id="TBPChart" width="900" height="500"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.row -->
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto mb-5">
+                    <h2>Impacto para los costarricenses</h2>
+                    <hr>
+                    <p>"Cuando una persona quiere ahorrar, debe fijarse cuánto está pagando cada banco, para definir cuál le conviene".</p>
+
+                    <p>Si una persona desea ahorrar o invertir, debe fijarse si el banco está pagando un porcentaje mayor o menor a la TBP, para valorar si realmente lo que la entidad ofrece es competitivo o no con el mercado.</p>
+
+                    <p>La TBP es utilizada por los bancos y otras entidades financieras también para fijar las tasas que cobran por sus préstamos, principalmente los de vivienda.</p>
+
+                    <p>El banco generalmente cobra una tasa indexada a esta indicador, es decir, la tasa será igual a la TBP más un porcentaje adicional. Por lo tanto, cuando la TBP sube o baja, así también se moverá la tasa del préstamo y, por lo tanto, la mensualidad que debe pagar el cliente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="~/Scripts/Grafico2.js"></script>
+</body>
+
+
