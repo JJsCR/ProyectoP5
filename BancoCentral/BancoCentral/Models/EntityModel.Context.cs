@@ -32,5 +32,7 @@ namespace BancoCentral.Models
         public virtual DbSet<Distrito> Distrito { get; set; }
         public virtual DbSet<Indicador> Indicador { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
+        public virtual DbSet<Consulta> Consulta { get; set; }
+        public virtual DbSet<Respuesta> Respuesta { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BancoCentralModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BancoCentralModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Auditoria">
           <Key>
             <PropertyRef Name="idAuditoria" />
@@ -33,8 +33,8 @@
           <Property Name="cedula" Type="int" Nullable="false" />
           <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="profesion" Type="varchar" MaxLength="50" />
-          <Property Name="ultimaFechaIng" Type="datetime" Nullable="false" />
           <Property Name="distritoId" Type="int" Nullable="false" />
+          <Property Name="ultimaFechaIng" Type="date" />
         </EntityType>
         <EntityType Name="ClienteIndicador">
           <Key>
@@ -43,6 +43,14 @@
           <Property Name="idIndicadorCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="indicadorId" Type="int" Nullable="false" />
           <Property Name="clienteId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Consulta">
+          <Key>
+            <PropertyRef Name="idConsulta" />
+          </Key>
+          <Property Name="idConsulta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="consulta" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Distrito">
           <Key>
@@ -66,6 +74,15 @@
           </Key>
           <Property Name="idPronvincia" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Respuesta">
+          <Key>
+            <PropertyRef Name="idRespuesta" />
+          </Key>
+          <Property Name="idRespuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="respuesta" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="consultaId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Canton_Provincia">
           <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
@@ -127,14 +144,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Respuesta_Consulta">
+          <End Role="Consulta" Type="Self.Consulta" Multiplicity="1" />
+          <End Role="Respuesta" Type="Self.Respuesta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consulta">
+              <PropertyRef Name="idConsulta" />
+            </Principal>
+            <Dependent Role="Respuesta">
+              <PropertyRef Name="consultaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BancoCentralModelStoreContainer">
           <EntitySet Name="Auditoria" EntityType="Self.Auditoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Canton" EntityType="Self.Canton" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClienteIndicador" EntityType="Self.ClienteIndicador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Consulta" EntityType="Self.Consulta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Indicador" EntityType="Self.Indicador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Respuesta" EntityType="Self.Respuesta" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Canton_Provincia" Association="Self.FK_Canton_Provincia">
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Canton" EntitySet="Canton" />
@@ -155,9 +186,12 @@
             <End Role="Canton" EntitySet="Canton" />
             <End Role="Distrito" EntitySet="Distrito" />
           </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Consulta" Association="Self.FK_Respuesta_Consulta">
+            <End Role="Consulta" EntitySet="Consulta" />
+            <End Role="Respuesta" EntitySet="Respuesta" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BancoCentralModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -191,10 +225,10 @@
           <Property Name="cedula" Type="Int32" Nullable="false" />
           <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="profesion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ultimaFechaIng" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="distritoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Distrito" Relationship="Self.FK_Cliente_Distrito" FromRole="Cliente" ToRole="Distrito" />
           <NavigationProperty Name="ClienteIndicador" Relationship="Self.FK_ClienteIndicador_Cliente" FromRole="Cliente" ToRole="ClienteIndicador" />
+          <Property Name="ultimaFechaIng" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="ClienteIndicador">
           <Key>
@@ -321,7 +355,44 @@
             <End Role="Indicador" EntitySet="Indicador" />
             <End Role="ClienteIndicador" EntitySet="ClienteIndicador" />
           </AssociationSet>
+          <EntitySet Name="Consulta" EntityType="BancoCentralModel.Consulta" />
+          <EntitySet Name="Respuesta" EntityType="BancoCentralModel.Respuesta" />
+          <AssociationSet Name="FK_Respuesta_Consulta" Association="BancoCentralModel.FK_Respuesta_Consulta">
+            <End Role="Consulta" EntitySet="Consulta" />
+            <End Role="Respuesta" EntitySet="Respuesta" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Consulta">
+          <Key>
+            <PropertyRef Name="idConsulta" />
+          </Key>
+          <Property Name="idConsulta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="consulta1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Respuesta" Relationship="BancoCentralModel.FK_Respuesta_Consulta" FromRole="Consulta" ToRole="Respuesta" />
+        </EntityType>
+        <EntityType Name="Respuesta">
+          <Key>
+            <PropertyRef Name="idRespuesta" />
+          </Key>
+          <Property Name="idRespuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="respuesta1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="consultaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Consulta" Relationship="BancoCentralModel.FK_Respuesta_Consulta" FromRole="Respuesta" ToRole="Consulta" />
+        </EntityType>
+        <Association Name="FK_Respuesta_Consulta">
+          <End Type="BancoCentralModel.Consulta" Role="Consulta" Multiplicity="1" />
+          <End Type="BancoCentralModel.Respuesta" Role="Respuesta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consulta">
+              <PropertyRef Name="idConsulta" />
+            </Principal>
+            <Dependent Role="Respuesta">
+              <PropertyRef Name="consultaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -350,6 +421,7 @@
           <EntitySetMapping Name="Cliente">
             <EntityTypeMapping TypeName="BancoCentralModel.Cliente">
               <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="ultimaFechaIng" ColumnName="ultimaFechaIng" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="apellidoPaterno" ColumnName="apellidoPaterno" />
@@ -357,7 +429,6 @@
                 <ScalarProperty Name="cedula" ColumnName="cedula" />
                 <ScalarProperty Name="correo" ColumnName="correo" />
                 <ScalarProperty Name="profesion" ColumnName="profesion" />
-                <ScalarProperty Name="ultimaFechaIng" ColumnName="ultimaFechaIng" />
                 <ScalarProperty Name="distritoId" ColumnName="distritoId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -394,6 +465,25 @@
               <MappingFragment StoreEntitySet="Provincia">
                 <ScalarProperty Name="idPronvincia" ColumnName="idPronvincia" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Consulta">
+            <EntityTypeMapping TypeName="BancoCentralModel.Consulta">
+              <MappingFragment StoreEntitySet="Consulta">
+                <ScalarProperty Name="consulta1" ColumnName="consulta" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idConsulta" ColumnName="idConsulta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Respuesta">
+            <EntityTypeMapping TypeName="BancoCentralModel.Respuesta">
+              <MappingFragment StoreEntitySet="Respuesta">
+                <ScalarProperty Name="consultaId" ColumnName="consultaId" />
+                <ScalarProperty Name="respuesta1" ColumnName="respuesta" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idRespuesta" ColumnName="idRespuesta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

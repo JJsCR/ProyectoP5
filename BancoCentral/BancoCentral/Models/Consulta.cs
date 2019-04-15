@@ -12,26 +12,19 @@ namespace BancoCentral.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cliente
+    public partial class Consulta
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cliente()
+        public Consulta()
         {
-            this.ClienteIndicador = new HashSet<ClienteIndicador>();
+            this.Respuesta = new HashSet<Respuesta>();
         }
     
-        public int idCliente { get; set; }
+        public int idConsulta { get; set; }
         public string nombre { get; set; }
-        public string apellidoPaterno { get; set; }
-        public string apellidoMaterno { get; set; }
-        public int cedula { get; set; }
-        public string correo { get; set; }
-        public string profesion { get; set; }
-        public int distritoId { get; set; }
-        public Nullable<System.DateTime> ultimaFechaIng { get; set; }
+        public string consulta1 { get; set; }
     
-        public virtual Distrito Distrito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ClienteIndicador> ClienteIndicador { get; set; }
+        public virtual ICollection<Respuesta> Respuesta { get; set; }
     }
 }

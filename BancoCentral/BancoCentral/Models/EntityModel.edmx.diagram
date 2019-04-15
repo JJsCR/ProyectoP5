@@ -17,6 +17,9 @@
         <AssociationConnector Association="BancoCentralModel.FK_Cliente_Distrito" ManuallyRouted="false" />
         <AssociationConnector Association="BancoCentralModel.FK_ClienteIndicador_Cliente" ManuallyRouted="false" />
         <AssociationConnector Association="BancoCentralModel.FK_ClienteIndicador_Indicador" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BancoCentralModel.Consulta" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="BancoCentralModel.Respuesta" Width="1.5" PointX="3" PointY="7.875" />
+        <AssociationConnector Association="BancoCentralModel.FK_Respuesta_Consulta" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

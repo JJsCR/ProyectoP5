@@ -60,7 +60,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-	<Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -146,7 +146,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-	<Compile Include="Controllers\ClientesController.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TBPController.cs" />
     <Compile Include="Controllers\TCDController.cs" />
@@ -164,6 +164,9 @@
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ClienteIndicador.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Consulta.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Distrito.cs">
@@ -188,6 +191,9 @@
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Provincia.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Respuesta.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -264,7 +270,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-	<None Include="Connected Services\WSBancoCentral\wsIndicadoresEconomicos.wsdl" />
+    <None Include="Connected Services\WSBancoCentral\wsIndicadoresEconomicos.wsdl" />
     <Content Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

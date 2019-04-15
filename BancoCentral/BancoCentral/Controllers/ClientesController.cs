@@ -54,7 +54,7 @@ namespace BancoCentral.Controllers
             }
             else
             {
-                string lastDate = cliente.ultimaFechaIng.ToString("dd/MM/yyyy");
+                string lastDate = Convert.ToString(cliente.ultimaFechaIng);
                 string nowDate = DateTime.Now.ToString("dd/MM/yyyy");
 
                 if (!lastDate.Equals(nowDate))
