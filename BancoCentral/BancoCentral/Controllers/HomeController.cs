@@ -10,6 +10,9 @@ namespace BancoCentral.Controllers
     {
         public ActionResult Index()
         {
+            ClientesController clientes = new ClientesController();
+            clientes.CorreosClientes();
+
             return View();
         }
 

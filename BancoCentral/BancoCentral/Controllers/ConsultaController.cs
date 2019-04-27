@@ -13,7 +13,7 @@ namespace BancoCentral.Controllers
 {
     public class ConsultaController : Controller
     {
-        private BancoCentralEntities1 db = new BancoCentralEntities1();
+        private BancoCentralEntities db = new BancoCentralEntities();
 
         // GET: Consulta
         public async Task<ActionResult> Index()

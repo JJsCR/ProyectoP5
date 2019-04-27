@@ -17,6 +17,7 @@ namespace BancoCentral.Models
         public int idIndicadorCliente { get; set; }
         public int indicadorId { get; set; }
         public int clienteId { get; set; }
+        public System.DateTime fecha { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         public virtual Indicador Indicador { get; set; }

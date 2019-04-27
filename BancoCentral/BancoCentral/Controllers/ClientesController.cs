@@ -14,7 +14,10 @@ namespace BancoCentral.Controllers
 {
     public class ClientesController : Controller
     {
-        private BancoCentralEntities1 db = new BancoCentralEntities1();
+        private BancoCentralEntities db = new BancoCentralEntities();
+        private EmailController emailController = new EmailController();
+        private WebServiceController webService = new WebServiceController();
+        private IndicadorController indicadorController = new IndicadorController();
 
         // GET: Clientes
         public ActionResult Index()
@@ -36,77 +39,85 @@ namespace BancoCentral.Controllers
         }
 
         // GET: Clientes/Details/5
-        public bool SearchUser(String email)
+        public void CorreosClientes()
         {
-            cr.fi.bccr.gee.wsIndicadoresEconomicos indicadores = new cr.fi.bccr.gee.wsIndicadoresEconomicos();
+            List<Cliente> clientes = findUsers();
+            string lastDate = "";
+            string nowDate = DateTime.Now.ToString("yyyy/MM/dd");
 
-
-            if (email == null)
+            try
             {
-                return false;
-            }
 
-            Cliente cliente = findUser(email);
+                DateTime llenarIndicadores = db.Database.SqlQuery<DateTime>("select top 1 ISNULL(MAX(fecha), ' ') from Indicador;").FirstOrDefault();
 
-            if (cliente == null)
-            {
-                return false;
-            }
-            else
-            {
-                string lastDate = Convert.ToString(cliente.ultimaFechaIng);
-                string nowDate = DateTime.Now.ToString("dd/MM/yyyy");
-
-                if (!lastDate.Equals(nowDate))
+                if (DateTime.Compare(llenarIndicadores, Convert.ToDateTime("1/1/1900 00:00:00")) == 0)
                 {
 
-                    DataSet tablaIndicadores = new DataSet();
+                    indicadorController.CreateIndicador(webService.ObtenerIndicadoresWebService("01/01/2010", nowDate));
 
-                    DataTable compra = indicadores.ObtenerIndicadoresEconomicos("317",
-                                                                                lastDate,
-                                                                                nowDate,
-                                                                                cliente.nombre + " " + cliente.apellidoPaterno, "N").Tables[0].Copy();
-
-                    DataTable venta = indicadores.ObtenerIndicadoresEconomicos("318",
-                                                                                lastDate,
-                                                                                nowDate,
-                                                                                cliente.nombre + " " + cliente.apellidoPaterno, "N").Tables[0].Copy();
-
-                    compra.TableName = "tablaCompra";
-                    venta.TableName = "tablaVenta";
-
-                    tablaIndicadores.Tables.Add(compra);
-                    tablaIndicadores.Tables.Add(venta);
-
-                    for (int i = 0; i < tablaIndicadores.Tables[0].Rows.Count; i++)
+                    if (clientes == null)
                     {
-
-                        sendEmail("Indicadores Económicos",
-                                  "<b>Señor:</b> " + cliente.nombre + " " + cliente.apellidoPaterno + " <b>cedula:</b> " + cliente.cedula + "<br>" + 
-                                  " <b>Fecha Tipo Cambio:</b> " + Convert.ToString(tablaIndicadores.Tables[0].Rows[i].ItemArray[1]) + "<br>" +
-                                  " <b>Tipo Cambio Compra:</b> " + Convert.ToString(tablaIndicadores.Tables[0].Rows[i].ItemArray[2]) + "<br>" +
-                                   " <b>Tipo Cambio Venta:</b> " + Convert.ToString(tablaIndicadores.Tables[1].Rows[i].ItemArray[2]) + "<br><br>" +
-                                   "<img src='https://activos.bccr.fi.cr/sitios/bccr/SiteAssets/bccr.jpg'>",
-                                  cliente.correo);
-
+                        return;
                     }
+
+                    webService.WebServiceCorreo(indicadorController.ObtenerIndicadoresBaseDatos(nowDate, nowDate), clientes);
+                    return;
                 }
 
-                int resultado = db.Database.ExecuteSqlCommand("UPDATE Cliente SET ultimaFechaIng = '" + DateTime.Now.ToString("yyyy/MM/dd") + "' WHERE idCliente = " + cliente.idCliente);
-
-                if (resultado != 0)
+                if (clientes == null)
                 {
-
-                    login(cliente);
-                    return true;
-                 
+                    return;
                 }
                 else
                 {
-                    return false;
+                    DateTime lastDateAux = db.Database.SqlQuery<DateTime>("select top 1 ISNULL(MAX(fecha), ' ') from ClienteIndicador;").FirstOrDefault();
+
+
+                    if (DateTime.Compare(lastDateAux, Convert.ToDateTime("1/1/1900 00:00:00")) == 0)
+                    {
+                        webService.WebServiceCorreo(indicadorController.ObtenerIndicadoresBaseDatos(nowDate, nowDate), clientes);
+                        return;
+                    }
+                    else
+                    {
+                        lastDate = Convert.ToString(lastDateAux.ToString("yyyy/MM/dd"));
+                    }
+
+                    if (!lastDate.Equals(nowDate))
+                    {
+                        lastDateAux = lastDateAux.AddDays(1);
+                        lastDate = Convert.ToString(lastDateAux.ToString("yyyy/MM/dd"));
+
+                        indicadorController.CreateIndicador(webService.ObtenerIndicadoresWebService(lastDate, nowDate));
+
+                        webService.WebServiceCorreo(indicadorController.ObtenerIndicadoresBaseDatos(lastDate, nowDate), clientes);
+                    }
+                    else
+                    {
+                        return;
+                    }
+
                 }
             }
-            
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public List<Cliente> findUsers()
+        {
+            List<Cliente> clientes = new List<Cliente>();
+
+            clientes = db.Database.SqlQuery<Cliente>("SELECT * FROM Cliente").ToList();
+            if (clientes == null)
+            {
+                return null;
+            }
+            else
+            {
+                return clientes;
+            }
         }
 
         public Cliente findUser(string email)
@@ -149,7 +160,6 @@ namespace BancoCentral.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "idCliente,nombre,apellidoPaterno,apellidoMaterno,cedula,correo,profesion,distritoId")] Cliente cliente)
         {
-            cliente.ultimaFechaIng = DateTime.Now;
 
             if (findUser(cliente.correo) != null)
             {
@@ -160,9 +170,9 @@ namespace BancoCentral.Controllers
             {
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
-                sendEmail("Confirmar cuenta banco central","Cuenta de "+ cliente.nombre +  " creada con éxito", cliente.correo);
+                emailController.sendEmail("Confirmar cuenta banco central","Cuenta de "+ cliente.nombre +  " creada con éxito", cliente.correo);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
         protected override void Dispose(bool disposing)
@@ -174,44 +184,6 @@ namespace BancoCentral.Controllers
             base.Dispose(disposing);
         }
 
-        public void sendEmail(String asunto, String body, String correo)
-        {
-            MailMessage email = new MailMessage();
-            email.To.Add(new MailAddress(correo));
-            email.From = new MailAddress("mepcostaricaprueba@hotmail.com");
-            email.Subject = asunto;
-            email.Body = body;
-            email.IsBodyHtml = true;
-            email.Priority = MailPriority.Normal;
-
-            string output = null;
-            SmtpClient smtp = instanciaSmtp();
-
-            try
-            {
-               
-                
-                    smtp.Send(email);
-                
-                email.Dispose();
-            }
-            catch (Exception ex)
-            {
-                output = "Error enviando correo electrónico: " + ex.Message;
-            }
-
-        }
-
-        public SmtpClient instanciaSmtp()
-        {
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp-mail.outlook.com";
-            smtp.Port = 587;
-            smtp.EnableSsl = true;
-            smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential("mepcostaricaprueba@hotmail.com", "prueba2019");
-            
-            return smtp;
-        }
+        
     }
 }

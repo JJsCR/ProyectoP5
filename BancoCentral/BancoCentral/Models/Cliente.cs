@@ -28,7 +28,6 @@ namespace BancoCentral.Models
         public string correo { get; set; }
         public string profesion { get; set; }
         public int distritoId { get; set; }
-        public Nullable<System.DateTime> ultimaFechaIng { get; set; }
     
         public virtual Distrito Distrito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
