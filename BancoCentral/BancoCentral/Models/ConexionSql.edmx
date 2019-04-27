@@ -33,7 +33,6 @@
           <Property Name="cedula" Type="int" Nullable="false" />
           <Property Name="correo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="profesion" Type="varchar" MaxLength="50" />
-          <Property Name="ultimaFechaIng" Type="datetime" Nullable="false" />
           <Property Name="distritoId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ClienteIndicador">
@@ -43,6 +42,7 @@
           <Property Name="idIndicadorCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="indicadorId" Type="int" Nullable="false" />
           <Property Name="clienteId" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Distrito">
           <Key>
@@ -57,8 +57,12 @@
             <PropertyRef Name="idIndicador" />
           </Key>
           <Property Name="idIndicador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="indicador" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="grafico" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="tasaBasicaPasiva" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tasaPoliticaMonetaria" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tipoCambioCompra" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tipoCambioVenta" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="grafico" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Provincia">
           <Key>
@@ -191,7 +195,6 @@
           <Property Name="cedula" Type="Int32" Nullable="false" />
           <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="profesion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ultimaFechaIng" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="distritoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Distrito" Relationship="Self.FK_Cliente_Distrito" FromRole="Cliente" ToRole="Distrito" />
           <NavigationProperty Name="ClienteIndicador" Relationship="Self.FK_ClienteIndicador_Cliente" FromRole="Cliente" ToRole="ClienteIndicador" />
@@ -203,6 +206,7 @@
           <Property Name="idIndicadorCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="indicadorId" Type="Int32" Nullable="false" />
           <Property Name="clienteId" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Cliente" Relationship="Self.FK_ClienteIndicador_Cliente" FromRole="ClienteIndicador" ToRole="Cliente" />
           <NavigationProperty Name="Indicador" Relationship="Self.FK_ClienteIndicador_Indicador" FromRole="ClienteIndicador" ToRole="Indicador" />
         </EntityType>
@@ -221,8 +225,12 @@
             <PropertyRef Name="idIndicador" />
           </Key>
           <Property Name="idIndicador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="indicador1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="grafico" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tasaBasicaPasiva" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tasaPoliticaMonetaria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipoCambioCompra" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipoCambioVenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="grafico" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ClienteIndicador" Relationship="Self.FK_ClienteIndicador_Indicador" FromRole="Indicador" ToRole="ClienteIndicador" />
         </EntityType>
         <EntityType Name="Provincia">
@@ -293,7 +301,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BancoCentralEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BancoCentralEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Auditoria" EntityType="Self.Auditoria" />
           <EntitySet Name="Canton" EntityType="Self.Canton" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
@@ -327,7 +335,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BancoCentralModelStoreContainer" CdmEntityContainer="BancoCentralEntities1">
+        <EntityContainerMapping StorageEntityContainer="BancoCentralModelStoreContainer" CdmEntityContainer="BancoCentralEntities">
           <EntitySetMapping Name="Auditoria">
             <EntityTypeMapping TypeName="BancoCentralModel.Auditoria">
               <MappingFragment StoreEntitySet="Auditoria">
@@ -357,7 +365,6 @@
                 <ScalarProperty Name="cedula" ColumnName="cedula" />
                 <ScalarProperty Name="correo" ColumnName="correo" />
                 <ScalarProperty Name="profesion" ColumnName="profesion" />
-                <ScalarProperty Name="ultimaFechaIng" ColumnName="ultimaFechaIng" />
                 <ScalarProperty Name="distritoId" ColumnName="distritoId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -368,6 +375,7 @@
                 <ScalarProperty Name="idIndicadorCliente" ColumnName="idIndicadorCliente" />
                 <ScalarProperty Name="indicadorId" ColumnName="indicadorId" />
                 <ScalarProperty Name="clienteId" ColumnName="clienteId" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -384,7 +392,11 @@
             <EntityTypeMapping TypeName="BancoCentralModel.Indicador">
               <MappingFragment StoreEntitySet="Indicador">
                 <ScalarProperty Name="idIndicador" ColumnName="idIndicador" />
-                <ScalarProperty Name="indicador1" ColumnName="indicador" />
+                <ScalarProperty Name="tasaBasicaPasiva" ColumnName="tasaBasicaPasiva" />
+                <ScalarProperty Name="tasaPoliticaMonetaria" ColumnName="tasaPoliticaMonetaria" />
+                <ScalarProperty Name="tipoCambioCompra" ColumnName="tipoCambioCompra" />
+                <ScalarProperty Name="tipoCambioVenta" ColumnName="tipoCambioVenta" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="grafico" ColumnName="grafico" />
               </MappingFragment>
             </EntityTypeMapping>
