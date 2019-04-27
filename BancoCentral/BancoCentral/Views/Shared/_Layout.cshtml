@@ -9,76 +9,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
-    <script type="text/javascript">
-     
-        $(document).ready(function () {
-      
-            $('#iniciarSesion').click(function (e) {
-                e.preventDefault();
-
-                $(".loader").addClass("loading");
-
-                var email = document.getElementById("email").value;
-                
-                $.ajax({
-                    type: "GET",
-                    url: '/Clientes/SearchUser?email=' + email,
-                    data: "",                                                
-                    contentType: "application/json; charset=utf-8",            
-                    dataType: "text",                                          
-                    async: true,                                               
-                    success: function (resultado) {
-                        $(".loader").removeClass("loading")
-                        if (resultado == 'True') {
-                            
-                            window.location.href = "/Home/Index";
-                        } else {
-                            alert("No existe el correo ingresado");
-                        }
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) { 
-                        
-                    }
-                });
-            });
-
-            $('#formCrearCliente').submit(function (e) {
-                e.preventDefault();
-
-                var name = document.getElementById("nameCreate").value;
-                var lastName = document.getElementById("lastNameCreate").value;
-                var secondLastName = document.getElementById("secondLastNameCreate").value;
-                var cedula = document.getElementById("cedulaCreate").value;
-                var email = document.getElementById("emailCreate").value;
-                var profesion = document.getElementById("profesionCreate").value;
-
-                if (name !== "" && lastName !== "" && secondLastName !== "" && cedula !== "" && email !== "" && profesion !== "") {
-
-                    $.ajax({
-                        type: "GET",
-                        url: '/Clientes/findUserBool?email=' + email,
-                        data: "",
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "text",
-                        async: true,
-                        success: function (resultado) {
-
-                            if (resultado == 'True') {
-                                alert("Error, el correo ya existe");
-                                return false;
-                            } else {
-                                document.getElementById('formCrearCliente').submit();
-                                return true;
-                            }
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-                        }
-                    });
-                }
-            });
-        });
-    </script>
+    <script src="~/Scripts/login.js" type="text/javascript"></script> 
 </head>
 <body class="m-0 p-0">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar fixed-top mb-5">
@@ -96,52 +27,51 @@
             {
                 <a href="/Clientes/Create" class="nav-link">¿No te has suscrito?</a>
 
-                <input type="Button" value="Iniciar Sesión" id="iniciarSesion" class="btn btn-outline-success my-2 my-sm-0" />
-                @Html.TextBox("email", "Correo", new { @class = "form-control mr-sm-2", id = "email" });
+                <!--   <input type="Button" value="Iniciar Sesión" id="iniciarSesion" class="btn btn-outline-success my-2 my-sm-0" />  -->
+                @*      @Html.TextBox("email", "Correo", new { @class = "form-control mr-sm-2", id = "email" });    *@ 
 
 
+                    }
+                    else
+                    {
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                @Session["nombreCliente"]
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <a href="/Clientes/CerrarSesion" class="nav-link">Cerrar Sesión</a>
 
-            }
-            else
-            {
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        @Session["nombreCliente"]
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <a href="/Clientes/CerrarSesion" class="nav-link">Cerrar Sesión</a>
-
-                    </ul>
+                            </ul>
+                        </div>
+                    }
                 </div>
-            }
-        </div>
-    </nav>
+            </nav>
 
-    <div class="loader">
+            <div class="loader">
 
-    </div>
+            </div>
 
-    @RenderSection("SideBar", required: false)
+            @RenderSection("SideBar", required: false)
 
-   
 
-    <div class="container body-content">
-        <div id="content">
-            @RenderSection("Content", required: false)
-        </div>
 
-        @RenderBody()
+            <div class="container body-content">
+                <div id="content">
+                    @RenderSection("Content", required: false)
+                </div>
 
-        <hr />
-        <footer class="text-center">
-            <p>&copy; @DateTime.Now.Year MASTERS-JKL</p>
-        </footer>
+                @RenderBody()
 
-        
-    </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+                <hr />
+                <footer class="text-center">
+                    <p>&copy; @DateTime.Now.Year MASTERS-JKL</p>
+                </footer>
+
+
+            </div>
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
+        </body>
+        </html>

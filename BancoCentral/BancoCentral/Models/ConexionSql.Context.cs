@@ -13,10 +13,10 @@ namespace BancoCentral.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BancoCentralEntities1 : DbContext
+    public partial class BancoCentralEntities : DbContext
     {
-        public BancoCentralEntities1()
-            : base("name=BancoCentralEntities1")
+        public BancoCentralEntities()
+            : base("name=BancoCentralEntities")
         {
         }
     

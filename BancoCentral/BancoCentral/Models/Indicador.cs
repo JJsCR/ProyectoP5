@@ -21,7 +21,11 @@ namespace BancoCentral.Models
         }
     
         public int idIndicador { get; set; }
-        public string indicador1 { get; set; }
+        public string tasaBasicaPasiva { get; set; }
+        public string tasaPoliticaMonetaria { get; set; }
+        public string tipoCambioCompra { get; set; }
+        public string tipoCambioVenta { get; set; }
+        public System.DateTime fecha { get; set; }
         public string grafico { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
