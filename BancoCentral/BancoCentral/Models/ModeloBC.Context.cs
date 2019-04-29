@@ -29,10 +29,10 @@ namespace BancoCentral.Models
         public virtual DbSet<Canton> Canton { get; set; }
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<ClienteIndicador> ClienteIndicador { get; set; }
+        public virtual DbSet<Consulta> Consulta { get; set; }
         public virtual DbSet<Distrito> Distrito { get; set; }
         public virtual DbSet<Indicador> Indicador { get; set; }
         public virtual DbSet<Provincia> Provincia { get; set; }
-        public virtual DbSet<Consulta> Consulta { get; set; }
         public virtual DbSet<Respuesta> Respuesta { get; set; }
     }
 }

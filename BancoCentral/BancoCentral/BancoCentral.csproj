@@ -149,8 +149,10 @@
     <Compile Include="Controllers\ClienteIndicadorController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
+    <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndicadorController.cs" />
+    <Compile Include="Controllers\RespuestasController.cs" />
     <Compile Include="Controllers\TBPController.cs" />
     <Compile Include="Controllers\TCDController.cs" />
     <Compile Include="Controllers\TPMController.cs" />
@@ -159,40 +161,46 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Auditoria.cs">
-      <DependentUpon>ConexionSql.tt</DependentUpon>
+      <DependentUpon>ModeloBC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Canton.cs">
-      <DependentUpon>ConexionSql.tt</DependentUpon>
+      <DependentUpon>ModeloBC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Cliente.cs">
-      <DependentUpon>ConexionSql.tt</DependentUpon>
+      <DependentUpon>ModeloBC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ClienteIndicador.cs">
-      <DependentUpon>ConexionSql.tt</DependentUpon>
+      <DependentUpon>ModeloBC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ConexionSql.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConexionSql.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ConexionSql.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConexionSql.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ConexionSql.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ConexionSql.edmx</DependentUpon>
+    <Compile Include="Models\Consulta.cs">
+      <DependentUpon>ModeloBC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Distrito.cs">
-      <DependentUpon>ConexionSql.tt</DependentUpon>
+      <DependentUpon>ModeloBC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Indicador.cs">
-      <DependentUpon>ConexionSql.tt</DependentUpon>
+      <DependentUpon>ModeloBC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModeloBC.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloBC.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModeloBC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloBC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModeloBC.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModeloBC.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Provincia.cs">
-      <DependentUpon>ConexionSql.tt</DependentUpon>
+      <DependentUpon>ModeloBC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Respuesta.cs">
+      <DependentUpon>ModeloBC.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -227,15 +235,15 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\ConexionSql.Context.tt">
+    <Content Include="Models\ModeloBC.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConexionSql.edmx</DependentUpon>
-      <LastGenOutput>ConexionSql.Context.cs</LastGenOutput>
+      <DependentUpon>ModeloBC.edmx</DependentUpon>
+      <LastGenOutput>ModeloBC.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ConexionSql.tt">
+    <Content Include="Models\ModeloBC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ConexionSql.edmx</DependentUpon>
-      <LastGenOutput>ConexionSql.cs</LastGenOutput>
+      <DependentUpon>ModeloBC.edmx</DependentUpon>
+      <LastGenOutput>ModeloBC.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -259,12 +267,12 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <EntityDeploy Include="Models\ConexionSql.edmx">
+    <EntityDeploy Include="Models\ModeloBC.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ConexionSql.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModeloBC.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ConexionSql.edmx.diagram">
-      <DependentUpon>ConexionSql.edmx</DependentUpon>
+    <Content Include="Models\ModeloBC.edmx.diagram">
+      <DependentUpon>ModeloBC.edmx</DependentUpon>
     </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -327,6 +335,16 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Consulta\Create.cshtml" />
+    <Content Include="Views\Consulta\Delete.cshtml" />
+    <Content Include="Views\Consulta\Details.cshtml" />
+    <Content Include="Views\Consulta\Responder.cshtml" />
+    <Content Include="Views\Consulta\Index.cshtml" />
+    <Content Include="Views\Respuestas\Create.cshtml" />
+    <Content Include="Views\Respuestas\Delete.cshtml" />
+    <Content Include="Views\Respuestas\Details.cshtml" />
+    <Content Include="Views\Respuestas\Edit.cshtml" />
+    <Content Include="Views\Respuestas\Index.cshtml" />
     <None Include="Web References\cr.fi.bccr.gee\wsIndicadoresEconomicos.wsdl" />
     <Content Include="Views\TPM\IndexTPM.cshtml" />
     <Content Include="Views\TBP\IndexTBP.cshtml" />
@@ -334,10 +352,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ClienteIndicador\" />
-    <Folder Include="Views\Email\" />
-    <Folder Include="Views\Indicador\" />
-    <Folder Include="Views\WebService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
