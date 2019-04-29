@@ -17,9 +17,9 @@ namespace BancoCentral.Controllers
             string monetaria = "", pasiva = "", compra = "", venta = "";
             DateTime fecha;
             
-            for (int i = 0; i < tablaIndicadores.Tables[2].Rows.Count; i++)
+            for (int i = 0; i < tablaIndicadores.Tables[1].Rows.Count; i++)
             {
-                fecha = Convert.ToDateTime(tablaIndicadores.Tables[2].Rows[i].ItemArray[1]);
+                fecha = Convert.ToDateTime(tablaIndicadores.Tables[1].Rows[i].ItemArray[1]);
                         if (tablaIndicadores.Tables[0].Rows.Count == 0) {
                              monetaria = "No disponible";
                         }
@@ -27,9 +27,33 @@ namespace BancoCentral.Controllers
                         {
                              monetaria = Convert.ToString(tablaIndicadores.Tables[0].Rows[i].ItemArray[2]);
                         }
-                pasiva = Convert.ToString(tablaIndicadores.Tables[1].Rows[i].ItemArray[2]);
-                compra = Convert.ToString(tablaIndicadores.Tables[2].Rows[i].ItemArray[2]);
-                venta = Convert.ToString(tablaIndicadores.Tables[3].Rows[i].ItemArray[2]);
+              
+                        if (tablaIndicadores.Tables[1].Rows.Count == 0)
+                        {
+                            pasiva = "No disponible";
+                        }
+                        else
+                        {
+                            pasiva = Convert.ToString(tablaIndicadores.Tables[1].Rows[i].ItemArray[2]);      //Metodo para guardar inidicadores en la base de datos
+                        }
+               
+                        if (tablaIndicadores.Tables[2].Rows.Count == 0)
+                        {
+                            compra = "No disponible";
+                        }
+                        else
+                        {
+                            compra = Convert.ToString(tablaIndicadores.Tables[2].Rows[i].ItemArray[2]);
+                        }
+              
+                        if (tablaIndicadores.Tables[3].Rows.Count == 0)
+                        {
+                            venta = "No disponible";
+                        }
+                        else
+                        {
+                            venta = Convert.ToString(tablaIndicadores.Tables[3].Rows[i].ItemArray[2]);
+                        }
 
                 try
                 {
@@ -57,7 +81,7 @@ namespace BancoCentral.Controllers
             {
 
             }
-            return listaIndicadores;
+            return listaIndicadores;                                            //Metodo para obtener indicadores de la base de datos
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BancoCentral.Controllers
     {
         private BancoCentralEntities db = new BancoCentralEntities();
 
-        public void RegistraEnvioCorreo(int idIndicador, int idCliente)
+        public void RegistraEnvioCorreo(int idIndicador, int idCliente)                                     //Método para llevar un registro de los correos enviados a los clientes
         {
             string nowDate = DateTime.Now.ToString("yyyy/MM/dd");
             try

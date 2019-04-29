@@ -21,7 +21,7 @@ namespace BancoCentral.Controllers
             email.Priority = MailPriority.Normal;
 
             string output = null;
-            SmtpClient smtp = instanciaSmtp();
+            SmtpClient smtp = instanciaSmtp();                                                              //Metodo para enviar un correo con sus respectivos parametros
 
             try
             {
@@ -39,7 +39,7 @@ namespace BancoCentral.Controllers
         public SmtpClient instanciaSmtp()
         {
             SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp-mail.outlook.com";
+            smtp.Host = "smtp-mail.outlook.com";                                                        //Valores necesarios de configuracion para el envio de correos
             smtp.Port = 587;
             smtp.EnableSsl = true;
             smtp.UseDefaultCredentials = false;

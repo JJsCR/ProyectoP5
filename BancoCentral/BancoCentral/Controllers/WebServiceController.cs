@@ -32,7 +32,7 @@ namespace BancoCentral.Controllers
                 DataTable basicaPasiva = indicadores.ObtenerIndicadoresEconomicos("423",
                                                                             lastDate,
                                                                             nowDate,
-                                                                            cliente, "N").Tables[0].Copy();
+                                                                            cliente, "N").Tables[0].Copy();           //Metodo para obtener los indicadores del Web Service del Banco Central
 
                 DataTable compra = indicadores.ObtenerIndicadoresEconomicos("317",
                                                                             lastDate,
@@ -74,12 +74,13 @@ namespace BancoCentral.Controllers
                 {
 
                     emailController.sendEmail("Indicadores Económicos",
-                              "<b>Señor:</b> " + cliente.nombre + " " + cliente.apellidoPaterno + " <b>cedula:</b> " + cliente.cedula + "<br>" +
+                              "<b>Señor:</b> " + cliente.nombre + " " + cliente.apellidoPaterno + " <b>cédula:</b> " + cliente.cedula + "<br><br>" +
                               " <b>Fecha Tipo Cambio:</b> " + Convert.ToString(indicador.fecha) + "<br>" +
                               " <b>Tasa Política Monetaria:</b> " + Convert.ToString(indicador.tasaPoliticaMonetaria) + "<br>" +
                               " <b>Tasa Básica Pasiva:</b> " + Convert.ToString(indicador.tasaBasicaPasiva) + "<br>" +
                               " <b>Tipo Cambio Compra:</b> " + Convert.ToString(indicador.tipoCambioCompra) + "<br>" +
-                               " <b>Tipo Cambio Venta:</b> " + Convert.ToString(indicador.tipoCambioVenta) + "<br><br>" +
+                               " <b>Tipo Cambio Venta:</b> " + Convert.ToString(indicador.tipoCambioVenta) + "<br>" +                //Metodo para establecer los parametros de envio de correo con indicadores
+                               "Tenga un buen día, le desea El Progreso. <br><br>" +
                                "<img src='https://activos.bccr.fi.cr/sitios/bccr/SiteAssets/bccr.jpg'>",
                               cliente.correo);
 
