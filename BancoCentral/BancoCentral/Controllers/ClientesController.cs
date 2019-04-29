@@ -43,59 +43,59 @@ namespace BancoCentral.Controllers
         {
             List<Cliente> clientes = findUsers();
             string lastDate = "";
-            string nowDate = DateTime.Now.ToString("yyyy/MM/dd");
+            string nowDate = DateTime.Now.ToString("yyyy/MM/dd");                                     //Metodo que inicia la operacion de extraccion del web service y envio de correos
 
             try
             {
 
-                DateTime llenarIndicadores = db.Database.SqlQuery<DateTime>("select top 1 ISNULL(MAX(fecha), ' ') from Indicador;").FirstOrDefault();
+                        DateTime llenarIndicadores = db.Database.SqlQuery<DateTime>("select top 1 ISNULL(MAX(fecha), ' ') from Indicador;").FirstOrDefault();
 
-                if (DateTime.Compare(llenarIndicadores, Convert.ToDateTime("1/1/1900 00:00:00")) == 0)
-                {
+                        if (DateTime.Compare(llenarIndicadores, Convert.ToDateTime("1/1/1900 00:00:00")) == 0)
+                        {
 
-                    indicadorController.CreateIndicador(webService.ObtenerIndicadoresWebService("01/01/2010", nowDate));
+                            indicadorController.CreateIndicador(webService.ObtenerIndicadoresWebService("01/01/2010", nowDate));
 
-                    if (clientes == null)
-                    {
-                        return;
-                    }
+                            if (clientes == null)
+                            {
+                                return;
+                            }
 
-                    webService.WebServiceCorreo(indicadorController.ObtenerIndicadoresBaseDatos(nowDate, nowDate), clientes);
-                    return;
-                }
+                            webService.WebServiceCorreo(indicadorController.ObtenerIndicadoresBaseDatos(nowDate, nowDate), clientes);
+                            return;
+                        }
 
-                if (clientes == null)
+                if (clientes == null)                                                               //Algunas validaciones para los inicios de la aplicacion, cuando no se cuenta con datos
                 {
                     return;
                 }
                 else
                 {
-                    DateTime lastDateAux = db.Database.SqlQuery<DateTime>("select top 1 ISNULL(MAX(fecha), ' ') from ClienteIndicador;").FirstOrDefault();
+                            DateTime lastDateAux = db.Database.SqlQuery<DateTime>("select top 1 ISNULL(MAX(fecha), ' ') from ClienteIndicador;").FirstOrDefault();
 
 
-                    if (DateTime.Compare(lastDateAux, Convert.ToDateTime("1/1/1900 00:00:00")) == 0)
-                    {
-                        webService.WebServiceCorreo(indicadorController.ObtenerIndicadoresBaseDatos(nowDate, nowDate), clientes);
-                        return;
-                    }
-                    else
-                    {
-                        lastDate = Convert.ToString(lastDateAux.ToString("yyyy/MM/dd"));
-                    }
+                            if (DateTime.Compare(lastDateAux, Convert.ToDateTime("1/1/1900 00:00:00")) == 0)
+                            {
+                                webService.WebServiceCorreo(indicadorController.ObtenerIndicadoresBaseDatos(nowDate, nowDate), clientes);
+                                return;
+                            }
+                            else
+                            {
+                                lastDate = Convert.ToString(lastDateAux.ToString("yyyy/MM/dd"));
+                            }
 
-                    if (!lastDate.Equals(nowDate))
-                    {
-                        lastDateAux = lastDateAux.AddDays(1);
-                        lastDate = Convert.ToString(lastDateAux.ToString("yyyy/MM/dd"));
+                            if (!lastDate.Equals(nowDate))
+                            {
+                                lastDateAux = lastDateAux.AddDays(1);
+                                lastDate = Convert.ToString(lastDateAux.ToString("yyyy/MM/dd"));
 
-                        indicadorController.CreateIndicador(webService.ObtenerIndicadoresWebService(lastDate, nowDate));
+                                indicadorController.CreateIndicador(webService.ObtenerIndicadoresWebService(lastDate, nowDate));          //Metodos para extraer y crear indicadores en base
 
-                        webService.WebServiceCorreo(indicadorController.ObtenerIndicadoresBaseDatos(lastDate, nowDate), clientes);
-                    }
-                    else
-                    {
-                        return;
-                    }
+                                webService.WebServiceCorreo(indicadorController.ObtenerIndicadoresBaseDatos(lastDate, nowDate), clientes);    //Metodos para envios de correos con indicadores
+                            }
+                            else
+                            {
+                                return;
+                            }
 
                 }
             }
@@ -109,7 +109,7 @@ namespace BancoCentral.Controllers
         {
             List<Cliente> clientes = new List<Cliente>();
 
-            clientes = db.Database.SqlQuery<Cliente>("SELECT * FROM Cliente").ToList();
+            clientes = db.Database.SqlQuery<Cliente>("SELECT * FROM Cliente").ToList();                    //Obtener todos los clientes suscritos
             if (clientes == null)
             {
                 return null;
@@ -125,7 +125,7 @@ namespace BancoCentral.Controllers
             Cliente cliente = db.Database.SqlQuery<Cliente>("SELECT * FROM Cliente WHERE correo = '" + email + "'").FirstOrDefault();
             if (cliente == null)
             {
-                return null;
+                return null;                                                                               //Obtener cliente con email
             }
             else
             {
@@ -138,7 +138,7 @@ namespace BancoCentral.Controllers
             Cliente cliente = db.Database.SqlQuery<Cliente>("SELECT * FROM Cliente WHERE correo = '" + email + "'").FirstOrDefault();
             if (cliente == null)
             {
-                return false;
+                return false;                                                                             //Validar la existencia de correo (Ajax)
             }
             else
             {
@@ -163,14 +163,15 @@ namespace BancoCentral.Controllers
 
             if (findUser(cliente.correo) != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);                                 //Metodo para suscribir un cliente
             }
 
             if (ModelState.IsValid)
             {
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
-                emailController.sendEmail("Confirmar cuenta banco central","Cuenta de "+ cliente.nombre +  " creada con éxito", cliente.correo);
+                emailController.sendEmail("Confirmación de suscripción El Progreso","Suscripción de "+ cliente.nombre +  " creada con éxito. <br>" +
+                                          "Gracias por confiar en nuestro trabajo, de parte de todo el equipo El Progreso.", cliente.correo);               //Email de confirmacion
             }
             return RedirectToAction("Index","Home");
         }
