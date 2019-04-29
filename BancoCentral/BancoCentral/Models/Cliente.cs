@@ -11,7 +11,8 @@ namespace BancoCentral.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Cliente
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,14 +22,27 @@ namespace BancoCentral.Models
         }
     
         public int idCliente { get; set; }
+        [Required]
+        [Display(Name = "Nombre:")]
         public string nombre { get; set; }
+        [Required]
+        [Display(Name = "Primer Apellido:")]
         public string apellidoPaterno { get; set; }
+        [Required]
+        [Display(Name = "Segundo Apellido:")]
         public string apellidoMaterno { get; set; }
+        [Required]
+        [Display(Name = "Cédula:")]
         public int cedula { get; set; }
+        [Required]
+        [Display(Name = "Correo:")]
         public string correo { get; set; }
+        [Required]
+        [Display(Name = "Profesión:")]
         public string profesion { get; set; }
+        [Display(Name = "Lugar de residencia:")]
         public int distritoId { get; set; }
-    
+
         public virtual Distrito Distrito { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClienteIndicador> ClienteIndicador { get; set; }
