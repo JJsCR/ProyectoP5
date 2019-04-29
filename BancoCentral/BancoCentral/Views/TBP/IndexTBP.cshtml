@@ -3,25 +3,44 @@
     ViewBag.Title = "IndexTBP";
 }
 
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+        h2 {
+            color: #ff9f1a;
+        }
 
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<style type="text/css">
-    h2 {
-        color: #ff9f1a;
-    }
+        #Head {
+            background-color: #ff9f1a;
+        }
 
-    #Head {
-        background-color: #ff9f1a;
-    }
+        #Card {
+            background-color: #649A8E;
+        }
 
-    #Card {
-        background-color: #649A8E;
-    }
+        p {
+            text-align: justify;
+        }
+    </style>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
 
-    p {
-        text-align: justify;
+    function drawChart() {
+        var data = new google.visualization.arrayToDataTable(@Html.Raw(@ViewBag.aqui)); @*@Url.Action("TPB", "ObtenerDatos")*@
+
+        var options = {
+            title: 'Company Performance',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
     }
-</style>
+    </script>
+</head>
 
 <body>
     <header class="py-5 mb-5" id="Head">
@@ -82,7 +101,7 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto mb-5">
                     <h2>Grafico Lineal</h2>
-                    <canvas id="TBPChart" width="900" height="500"></canvas>
+                    <div id="curve_chart" style="width: 800px; height: 500px"></div>
                 </div>
             </div>
         </div>

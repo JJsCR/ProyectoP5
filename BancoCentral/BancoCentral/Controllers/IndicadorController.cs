@@ -11,9 +11,11 @@ namespace BancoCentral.Controllers
     public class IndicadorController : Controller
     {
         private BancoCentralEntities db = new BancoCentralEntities();
+        
 
         public void CreateIndicador(DataSet tablaIndicadores)
         {
+
             string monetaria = "", pasiva = "", compra = "", venta = "";
             DateTime fecha;
             
