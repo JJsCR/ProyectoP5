@@ -1,4 +1,4 @@
-﻿@model BancoCentral.Models.Consulta
+﻿@model BancoCentral.Models.Respuesta
 
 @{
     ViewBag.Title = "Edit";
@@ -11,10 +11,10 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Consulta</h4>
+        <h4>Respuesta</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.idConsulta)
+        @Html.HiddenFor(model => model.idRespuesta)
 
         <div class="form-group">
             @Html.LabelFor(model => model.nombre, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -25,10 +25,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.consulta1, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.respuesta1, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.consulta1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.consulta1, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.respuesta1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.respuesta1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.consultaId, "consultaId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("consultaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.consultaId, "", new { @class = "text-danger" })
             </div>
         </div>
 

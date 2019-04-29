@@ -60,7 +60,7 @@ namespace BancoCentral.Controllers
         }
 
         // GET: Consulta/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Responder(int? id)
         {
             if (id == null)
             {
@@ -79,7 +79,7 @@ namespace BancoCentral.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "idConsulta,nombre,consulta1")] Consulta consulta)
+        public async Task<ActionResult> Responder([Bind(Include = "idConsulta,nombre,consulta1")] Consulta consulta)
         {
             if (ModelState.IsValid)
             {
@@ -90,39 +90,38 @@ namespace BancoCentral.Controllers
             return View(consulta);
         }
 
-        // GET: Consulta/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Consulta consulta = await db.Consulta.FindAsync(id);
-            if (consulta == null)
-            {
-                return HttpNotFound();
-            }
-            return View(consulta);
-        }
+        //public ActionResult Create()
+        //{
+        //    ViewBag.consultaId = new SelectList(db.Consulta, "idConsulta", "nombre");
+        //    return View();
+        //}
 
-        // POST: Consulta/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            Consulta consulta = await db.Consulta.FindAsync(id);
-            db.Consulta.Remove(consulta);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
-        }
+        //// POST: Respuestas/Create
+        //// Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        //// más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Create([Bind(Include = "idRespuesta,nombre,respuesta1,consultaId")] Respuesta respuesta)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Respuesta.Add(respuesta);
+        //        await db.SaveChangesAsync();
+        //        return RedirectToAction("Index");
+        //    }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //    ViewBag.consultaId = new SelectList(db.Consulta, "idConsulta", "nombre", respuesta.consultaId);
+        //    return View(respuesta);
+        //}
+
+
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

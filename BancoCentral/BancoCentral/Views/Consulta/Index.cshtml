@@ -1,14 +1,8 @@
 ﻿@model IEnumerable<BancoCentral.Models.Consulta>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Foro";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <div class="container-fluid">
     <h1 class="text-center">Foro</h1>
     <table class="table table-hover table-dark">
@@ -24,9 +18,13 @@
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.nombre)</td>
                     <td>@Html.DisplayFor(modelItem => item.consulta1)</td>
-                    <td>Responder@*@Html.ActionLink("Edit", "Edit", new { id = item.idConsulta })*@</td>
+                    @*<td>Responder@Html.ActionLink("Edit", "Edit", new { id = item.idConsulta })</td>*@
+                    <td>@Html.ActionLink("Responder","Responder", new { id = item.idConsulta })</td>
                 </tr>
             }
         </tbody>
     </table>
+</div>
+<div>
+    <a href="/Consulta/Create" class="nav-link">Crear Consulta</a>
 </div>

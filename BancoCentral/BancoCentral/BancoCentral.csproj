@@ -152,6 +152,7 @@
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndicadorController.cs" />
+    <Compile Include="Controllers\RespuestasController.cs" />
     <Compile Include="Controllers\TBPController.cs" />
     <Compile Include="Controllers\TCDController.cs" />
     <Compile Include="Controllers\TPMController.cs" />
@@ -332,6 +333,16 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Consulta\Create.cshtml" />
+    <Content Include="Views\Consulta\Delete.cshtml" />
+    <Content Include="Views\Consulta\Details.cshtml" />
+    <Content Include="Views\Consulta\Responder.cshtml" />
+    <Content Include="Views\Consulta\Index.cshtml" />
+    <Content Include="Views\Respuestas\Create.cshtml" />
+    <Content Include="Views\Respuestas\Delete.cshtml" />
+    <Content Include="Views\Respuestas\Details.cshtml" />
+    <Content Include="Views\Respuestas\Edit.cshtml" />
+    <Content Include="Views\Respuestas\Index.cshtml" />
     <None Include="Web References\cr.fi.bccr.gee\wsIndicadoresEconomicos.wsdl" />
     <Content Include="Views\TPM\IndexTPM.cshtml" />
     <Content Include="Views\TBP\IndexTBP.cshtml" />
@@ -339,10 +350,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ClienteIndicador\" />
-    <Folder Include="Views\Email\" />
-    <Folder Include="Views\Indicador\" />
-    <Folder Include="Views\WebService\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -11,7 +11,8 @@ namespace BancoCentral.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Consulta
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,11 @@ namespace BancoCentral.Models
         }
     
         public int idConsulta { get; set; }
+        [Required(ErrorMessage ="Debe llenar el campo de nombre")]
+        [StringLength(25, ErrorMessage = "Este campo debe ser menor a 25 caracteres")]
         public string nombre { get; set; }
+        [Required(ErrorMessage = "Debe llenar el campo de la consulta")]
+        [StringLength(90,ErrorMessage ="Este campo debe ser menor a 90 caracteres")]
         public string consulta1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
