@@ -44,6 +44,14 @@
           <Property Name="clienteId" Type="int" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="Consulta">
+          <Key>
+            <PropertyRef Name="idConsulta" />
+          </Key>
+          <Property Name="idConsulta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="consulta" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Distrito">
           <Key>
             <PropertyRef Name="idDistrito" />
@@ -70,6 +78,15 @@
           </Key>
           <Property Name="idPronvincia" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Respuesta">
+          <Key>
+            <PropertyRef Name="idRespuesta" />
+          </Key>
+          <Property Name="idRespuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="respuesta" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="consultaId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Canton_Provincia">
           <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
@@ -131,14 +148,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Respuesta_Consulta">
+          <End Role="Consulta" Type="Self.Consulta" Multiplicity="1" />
+          <End Role="Respuesta" Type="Self.Respuesta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consulta">
+              <PropertyRef Name="idConsulta" />
+            </Principal>
+            <Dependent Role="Respuesta">
+              <PropertyRef Name="consultaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BancoCentralModelStoreContainer">
           <EntitySet Name="Auditoria" EntityType="Self.Auditoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Canton" EntityType="Self.Canton" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClienteIndicador" EntityType="Self.ClienteIndicador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Consulta" EntityType="Self.Consulta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Indicador" EntityType="Self.Indicador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Respuesta" EntityType="Self.Respuesta" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Canton_Provincia" Association="Self.FK_Canton_Provincia">
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Canton" EntitySet="Canton" />
@@ -158,6 +189,10 @@
           <AssociationSet Name="FK_Distrito_Canton" Association="Self.FK_Distrito_Canton">
             <End Role="Canton" EntitySet="Canton" />
             <End Role="Distrito" EntitySet="Distrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Consulta" Association="Self.FK_Respuesta_Consulta">
+            <End Role="Consulta" EntitySet="Consulta" />
+            <End Role="Respuesta" EntitySet="Respuesta" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -210,6 +245,15 @@
           <NavigationProperty Name="Cliente" Relationship="Self.FK_ClienteIndicador_Cliente" FromRole="ClienteIndicador" ToRole="Cliente" />
           <NavigationProperty Name="Indicador" Relationship="Self.FK_ClienteIndicador_Indicador" FromRole="ClienteIndicador" ToRole="Indicador" />
         </EntityType>
+        <EntityType Name="Consulta">
+          <Key>
+            <PropertyRef Name="idConsulta" />
+          </Key>
+          <Property Name="idConsulta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="consulta1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Respuesta" Relationship="Self.FK_Respuesta_Consulta" FromRole="Consulta" ToRole="Respuesta" />
+        </EntityType>
         <EntityType Name="Distrito">
           <Key>
             <PropertyRef Name="idDistrito" />
@@ -240,6 +284,16 @@
           <Property Name="idPronvincia" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Canton" Relationship="Self.FK_Canton_Provincia" FromRole="Provincia" ToRole="Canton" />
+        </EntityType>
+        <EntityType Name="Respuesta">
+          <Key>
+            <PropertyRef Name="idRespuesta" />
+          </Key>
+          <Property Name="idRespuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="respuesta1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="consultaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Consulta" Relationship="Self.FK_Respuesta_Consulta" FromRole="Respuesta" ToRole="Consulta" />
         </EntityType>
         <Association Name="FK_Canton_Provincia">
           <End Role="Provincia" Type="Self.Provincia" Multiplicity="1" />
@@ -301,14 +355,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Respuesta_Consulta">
+          <End Role="Consulta" Type="Self.Consulta" Multiplicity="1" />
+          <End Role="Respuesta" Type="Self.Respuesta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consulta">
+              <PropertyRef Name="idConsulta" />
+            </Principal>
+            <Dependent Role="Respuesta">
+              <PropertyRef Name="consultaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BancoCentralEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Auditoria" EntityType="Self.Auditoria" />
           <EntitySet Name="Canton" EntityType="Self.Canton" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" />
           <EntitySet Name="ClienteIndicador" EntityType="Self.ClienteIndicador" />
+          <EntitySet Name="Consulta" EntityType="Self.Consulta" />
           <EntitySet Name="Distrito" EntityType="Self.Distrito" />
           <EntitySet Name="Indicador" EntityType="Self.Indicador" />
           <EntitySet Name="Provincia" EntityType="Self.Provincia" />
+          <EntitySet Name="Respuesta" EntityType="Self.Respuesta" />
           <AssociationSet Name="FK_Canton_Provincia" Association="Self.FK_Canton_Provincia">
             <End Role="Provincia" EntitySet="Provincia" />
             <End Role="Canton" EntitySet="Canton" />
@@ -328,6 +396,10 @@
           <AssociationSet Name="FK_ClienteIndicador_Indicador" Association="Self.FK_ClienteIndicador_Indicador">
             <End Role="Indicador" EntitySet="Indicador" />
             <End Role="ClienteIndicador" EntitySet="ClienteIndicador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Respuesta_Consulta" Association="Self.FK_Respuesta_Consulta">
+            <End Role="Consulta" EntitySet="Consulta" />
+            <End Role="Respuesta" EntitySet="Respuesta" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -379,6 +451,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Consulta">
+            <EntityTypeMapping TypeName="BancoCentralModel.Consulta">
+              <MappingFragment StoreEntitySet="Consulta">
+                <ScalarProperty Name="idConsulta" ColumnName="idConsulta" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="consulta1" ColumnName="consulta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Distrito">
             <EntityTypeMapping TypeName="BancoCentralModel.Distrito">
               <MappingFragment StoreEntitySet="Distrito">
@@ -406,6 +487,16 @@
               <MappingFragment StoreEntitySet="Provincia">
                 <ScalarProperty Name="idPronvincia" ColumnName="idPronvincia" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Respuesta">
+            <EntityTypeMapping TypeName="BancoCentralModel.Respuesta">
+              <MappingFragment StoreEntitySet="Respuesta">
+                <ScalarProperty Name="idRespuesta" ColumnName="idRespuesta" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="respuesta1" ColumnName="respuesta" />
+                <ScalarProperty Name="consultaId" ColumnName="consultaId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

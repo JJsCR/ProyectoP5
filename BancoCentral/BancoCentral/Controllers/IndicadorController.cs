@@ -61,5 +61,19 @@ namespace BancoCentral.Controllers
             }
             return listaIndicadores;
         }
+
+        public List<Indicador> ObtenerTBPBaseDatos()
+        {
+            List<Indicador> listaIndicadores = new List<Indicador>();
+            try
+            {
+                listaIndicadores = db.Database.SqlQuery<Indicador>(" Select convert(date ,fecha), tasaBasicaPasiva  from Indicador").ToList();
+            }
+            catch (Exception e)
+            {
+
+            }
+            return listaIndicadores;
+        }
     }
 }

@@ -21,6 +21,10 @@
         p {
             text-align: justify;
         }
+
+        .curve_chart{
+            background: red;
+        }
     </style>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -28,10 +32,10 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-        var data = new google.visualization.arrayToDataTable(@Html.Raw(@ViewBag.aqui)); @*@Url.Action("TPB", "ObtenerDatos")*@
+        var data = new google.visualization.arrayToDataTable(@Html.Raw(@ViewBag.aqui)); @*@Url.Action("TPB", "ObtenerDatos") @Html.Raw(@ViewBag.aqui)*@
 
         var options = {
-            title: 'Company Performance',
+            title: 'Grafico Lineal De la Tasa Basica Pasiva de los Ultimos 5 años',
             legend: { position: 'bottom' }
         };
 
@@ -99,9 +103,9 @@
     <section id="grafico">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8 mx-auto mb-5">
-                    <h2>Grafico Lineal</h2>
-                    <div id="curve_chart" style="width: 800px; height: 500px"></div>
+                <div class="col-lg-8 mx-auto mb-5" id="graf">
+                    <h2>Grafico Lineal Tasa Basica Pasiva</h2>
+                    <div id="curve_chart" style="width: 1000px; height: 500px"></div>
                 </div>
             </div>
         </div>
@@ -129,7 +133,7 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script src="~/Scripts/Grafico2.js"></script>
+    @*<script src="~/Scripts/Grafico2.js"></script>*@
 </body>
 
 

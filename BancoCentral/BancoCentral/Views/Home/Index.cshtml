@@ -1,6 +1,72 @@
 ﻿@{
     ViewBag.Title = "Inicio";
 }
+
+<style>
+    #graf1 {
+
+        /* width: 38%; */
+        margin-left: -65px;
+    }
+
+    #graf2 {
+        margin-right: -436px;
+        #graf3
+    }
+
+
+    #graf3{
+        /* width: 49%; */
+        margin-left: 365px;
+    }
+</style>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart1);
+    google.charts.setOnLoadCallback(drawChart2);
+
+    function drawChart() {
+        var data = new google.visualization.arrayToDataTable(@Html.Raw(@ViewBag.aqui)); @*@Url.Action("TPB", "ObtenerDatos") @Html.Raw(@ViewBag.aqui)*@
+
+        var options = {
+            title: 'Grafico Lineal Del Tipo Cambio Compra y Venta del Dolar del Ultimo año',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart2'));
+
+        chart.draw(data, options);
+    }
+
+        function drawChart1() {
+        var data1 = new google.visualization.arrayToDataTable(@Html.Raw(@ViewBag.aqui1)); @*@Url.Action("TPB", "ObtenerDatos") @Html.Raw(@ViewBag.aqui)*@
+
+        var options = {
+            title: 'Grafico Lineal De la Tasa Politica Monetaria del Ultimo año',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart1'));
+
+        chart.draw(data1, options);
+    }
+
+     function drawChart2() {
+        var data2 = new google.visualization.arrayToDataTable(@Html.Raw(@ViewBag.aqui2)); @*@Url.Action("TPB", "ObtenerDatos") @Html.Raw(@ViewBag.aqui)*@
+
+        var options = {
+            title: 'Grafico Lineal De la Tasa Basica Pasiva del Ultimo año',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data2, options);
+    }
+</script>
+
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -16,7 +82,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="http://lorempixel.com/1200/400/business/2" >
+            <img class="d-block w-100" src="http://lorempixel.com/1200/400/business/2">
             <div class="carousel-caption d-none d-md-block">
                 <h3>Promociones</h3>
                 <p>Enterate de nuestras promociones.</p>
@@ -39,6 +105,20 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-sm" id="graf1">
+            <div id="curve_chart1" style="width: 400px; height: 200px"></div>
+        </div>
+        <div class="col-sm" id="graf2">
+            <div id="curve_chart2" style="width: 400px; height: 200px"></div>
+        </div>
+        <div class="col-sm" id="graf3">
+            <div id="curve_chart" style="width:400px; height: 200px"></div>
+        </div>
+    </div>
+</div>
 
 <div class="card-deck mt-5">
     <div class="card">
@@ -55,11 +135,12 @@
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Tasa Básica Pasiva</h5>
-            <p class="card-text">La tasa básica pasiva es un promedio ponderado de las tasas de interés de captación brutas en colones, negociadas por los intermediarios financieros residentes en el país y de las tasas de interés de los instrumentos de captación del Banco Central y del
+            <p class="card-text">
+                La tasa básica pasiva es un promedio ponderado de las tasas de interés de captación brutas en colones, negociadas por los intermediarios financieros residentes en el país y de las tasas de interés de los instrumentos de captación del Banco Central y del
 
                 Ministerio de Hacienda negociadas tanto en el mercado primario como en el secundario, todas ellas correspondientes a los plazos entre 150 y 210 días.
             </p>
-            <a class="btn btn-warning btn-lg btn-block" href="/TBP/IndexTBP" role="button">Tasa Básica Pasiva</a>        
+            <a class="btn btn-warning btn-lg btn-block" href="/TBP/IndexTBP" role="button">Tasa Básica Pasiva</a>
         </div>
     </div>
     <div class="card">
